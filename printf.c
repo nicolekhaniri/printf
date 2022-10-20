@@ -1,5 +1,7 @@
 #include <unistd.h>
 #include <stdarg.h>
+#include "main.h"
+
 /**
  * _printf - Write a function that produces output according to a format
  * @format: pointer to a string
@@ -7,9 +9,7 @@
  *
  */
 
-int _printf(char *format, ...);
-
-int _printf(char *format, ...)
+int _printf(const char *format, ...)
 {
 	int i;
 	char n = '\n';
@@ -59,11 +59,5 @@ int _printf(char *format, ...)
 		}
 	}
 	write(1, &n, 1);
-	return (position);
-}
-
-int main(void)
-{
-	_printf("Hello %c %c %s", 'x', 'o', "Creeper");
-	return (0);
+return (position);
 }
