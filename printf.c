@@ -1,16 +1,39 @@
 #include <unistd.h>
-#include <stdio.h>
+#include <stdarg.h>
 
-int _printf(char *c);
+int _printf(char *format, ...);
 
-int _printf(char *c) {
+int _printf(char *format, ...) {
 	int i;
 	char n = '\n';
+	char space = ' ';
 	int position = 0;
+	va_list args;
+	va_start(args, format);
 
-	for (i = 0; c[i] != '\0'; i++) {
-		write(1, &c[i], 1);
-		position = position + 1;
+	for (i = 0; format[i] != '\0'; i++) 
+	{
+		if (format[i] == ' ')
+		{
+			write(1, &space, 1);
+			position = position + 1;
+		}
+		else if(format[i] == '%')
+		{
+			int j = i + 1;
+			if(format[j] == 'c')
+			{
+				int x = va_arg(args, int);
+				write(1, &x, 1);
+				i += 1;
+				position += 1;
+			}
+		}
+		else
+		{
+			write(1, &format[i], 1);
+			position += 1;	
+		}
 	}
 	write(1, &n, 1);
 	return (position);
@@ -18,6 +41,6 @@ int _printf(char *c) {
 
 int main (void) 
 {
-	_printf("Hello");
+	_printf("Hello %c %c %c", 'y', 'o', 'u');
 	return (0);
 }
