@@ -38,6 +38,19 @@ int _printf(char *format, ...)
 				i += 1;
 				position += 1;
 			}
+			else if (format[j] == 's')
+			{
+				int k = 0;
+
+				char *n = va_arg(args, char *);
+
+				while (n[k] != '\0')
+				{
+					write(1, &n[k], 1);
+					k += 1;
+				}
+				i += 1;
+			}
 		}
 		else
 		{
@@ -51,6 +64,6 @@ int _printf(char *format, ...)
 
 int main(void)
 {
-	_printf("Hello %c %c %c", 'y', 'o', 'u');
+	_printf("Hello %c %c %s", 'x', 'o', "Creeper");
 	return (0);
 }
